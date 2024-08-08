@@ -1,4 +1,4 @@
-from mysql.connector import Error, errorcode
+from mysql.connector import Error
 import mysql.connector
 
 import os 
