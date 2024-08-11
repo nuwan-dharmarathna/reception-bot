@@ -27,8 +27,6 @@ menu_table = """
     CREATE TABLE menu(
         id INT AUTO_INCREMENT PRIMARY KEY,
         menu_name VARCHAR(30) NOT NULL UNIQUE,
-        start_time TIME NOT NULL,
-        end_time TIME NOT NULL,
         description TEXT
     )
 """
