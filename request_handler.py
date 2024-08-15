@@ -14,7 +14,7 @@ def show_menu(parameters:dict, session_id:str, fullfilment_text:str):
     # Determine the meal time based on the current hour
     if 6 <= current_hour < 11:
         meal_time = 'breakfast'
-    elif 11 <= current_hour < 17:
+    elif 11 <= current_hour < 15:
         meal_time = 'lunch'
     else:
         meal_time = 'dinner'

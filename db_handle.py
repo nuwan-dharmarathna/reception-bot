@@ -31,11 +31,12 @@ def show_menu(meal_time:str):
             
         # Query the database for the menu
         query = """
-            SELECT mi.item_name, mi.price, mi.status
+            SELECT m.menu_name, mi.item_name, mi.price, mi.status
             FROM menu_item mi
             INNER JOIN menu m ON mi.menu_id = m.id
-            WHERE m.menu_name = %s
-            """
+            WHERE m.menu_name IN (%s, 'bakery items', 'juices')
+            GROUP BY mi.item_name, mi.price, mi.status
+        """
         
         cursor.execute(query, (meal_time,))
         
@@ -49,6 +50,6 @@ def show_menu(meal_time:str):
             return result
     except Error as e:
         print('❌ Error occured', e)
-        return "An error occured while fetching the menu"
+        return "❌ An error occured while fetching the menu"
     
     
