@@ -103,19 +103,22 @@ def order_complete(parameters:dict, session_id:str, fullfilment_text:str):
     else:
         order = inprogress_orders[session_id]
         
-        # add session_id to finalizing_orders dict
-        finalizing_orders[session_id] = order
-        
         # calculate total price
         total_price = sum([value['sub_tot'] for value in order.values()])
         # print(f"total_price: {total_price}")
+        
+        # add total price to the order
+        order['total_price'] = total_price
+                
+        # add session_id to finalizing_orders dict
+        finalizing_orders[session_id] = order
         
         # delete the order from inprogress_orders
         del inprogress_orders[session_id]
         
         return JSONResponse(
             content={
-                "fulfillmentText": f"\n Order Total is: {total_price} /=" + fullfilment_text
+                "fulfillmentText": f"\n Order Total is: Rs.{total_price}" + fullfilment_text
             }
         )
         
