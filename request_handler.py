@@ -59,9 +59,42 @@ def order_add(parameters:dict, session_id:str, fullfilment_text:str):
             }
         )
     
-def order_remove(parameters:dict, session_id:str, fullfilment_text:str):
-    pass
-
+def order_remove(parameters: dict, session_id: str, fullfilment_text: str):
+    if session_id not in inprogress_orders:
+        return JSONResponse(
+            content={
+                "fulfillmentText": "No order in progress. Please try again"
+            }
+        )
+    else:
+        current_order = inprogress_orders[session_id]
+        food_items = parameters['food_item']
+        
+        removed_items = []
+        not_found_items = []
+        
+        for item in food_items:
+            if item not in current_order:  # Check if item is in current_order
+                not_found_items.append(item)
+            else:
+                removed_items.append(item)
+                del current_order[item]  # Remove the item from the current_order
+        
+        if len(removed_items) > 0:
+            fullfilment_text += f"{', '.join(removed_items)} has been removed from your order."
+        if len(not_found_items) > 0:
+            fullfilment_text += f"{', '.join(not_found_items)} not found in your order."
+        if len(current_order) == 0:  # Check if current_order is empty
+            fullfilment_text += "Your order is empty. Add some items to continue."
+        else:
+            fullfilment_text += f"{utils.format_order(current_order)}.\n Anything else you would like to add?"
+        
+        return JSONResponse(
+            content={
+                "fulfillmentText": fullfilment_text
+            }
+        )
+            
 def order_complete(parameters:dict, session_id:str, fullfilment_text:str):
     pass
 
