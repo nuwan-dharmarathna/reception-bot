@@ -60,6 +60,7 @@ order_status = """
         order_id INT NOT NULL,
         status ENUM('in-kitchen', 'ready', 'served', 'delivered') NOT NULL DEFAULT 'in-kitchen',
         FOREIGN KEY (order_id) REFERENCES customer(order_id)
+    )
 """
 
 order_items_table = """
@@ -112,6 +113,7 @@ execute_query(customers_table)
 execute_query(menu_table)
 execute_query(menu_items_table)
 execute_query(orders_table)
+execute_query(order_status)
 execute_query(order_items_table)
 execute_query(reservation_table)
 execute_query(table_table)

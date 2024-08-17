@@ -50,10 +50,7 @@ def show_menu(meal_time:str):
     except Error as e:
         print('❌ Error occured', e)
         return "❌ An error occured while fetching the menu"
-
-def calc_tot_price():
-    pass    
-
+    
 def check_order_item(food_items:list, quantity:list, meal_time:str):
     try:
         # create cursor object

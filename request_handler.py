@@ -5,6 +5,9 @@ import utils
 
 inprogress_orders ={}
 
+# for complete orders
+finalizing_orders = {}
+
 
 def show_menu(parameters:dict, session_id:str, fullfilment_text:str):
     
@@ -100,9 +103,22 @@ def order_complete(parameters:dict, session_id:str, fullfilment_text:str):
     else:
         order = inprogress_orders[session_id]
         
-        # save the order to the database
+        # add session_id to finalizing_orders dict
+        finalizing_orders[session_id] = order
         
-
+        # calculate total price
+        total_price = sum([value['sub_tot'] for value in order.values()])
+        # print(f"total_price: {total_price}")
+        
+        # delete the order from inprogress_orders
+        del inprogress_orders[session_id]
+        
+        return JSONResponse(
+            content={
+                "fulfillmentText": f"\n Order Total is: {total_price} /=" + fullfilment_text
+            }
+        )
+        
 def track_order(parameters:dict, session_id:str, fullfilment_text:str):
     order_id = int(parameters['number'])
     print(f"order_id: {order_id}")
