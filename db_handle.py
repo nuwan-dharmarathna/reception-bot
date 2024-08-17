@@ -4,7 +4,6 @@ import mysql.connector
 import os 
 from dotenv import load_dotenv
 
-from datetime import datetime
 
 load_dotenv()
 
@@ -34,7 +33,7 @@ def show_menu(meal_time:str):
             SELECT m.menu_name, mi.item_name, mi.price, mi.status
             FROM menu_item mi
             INNER JOIN menu m ON mi.menu_id = m.id
-            WHERE m.menu_name IN (%s, 'bakery items', 'juices')
+            WHERE m.menu_name IN (%s, 'bakery items', 'juices') AND mi.status = 'available'
             GROUP BY mi.item_name, mi.price, mi.status
         """
         
@@ -52,4 +51,35 @@ def show_menu(meal_time:str):
         print('❌ Error occured', e)
         return "❌ An error occured while fetching the menu"
     
-    
+
+def check_order_item(food_items:list, meal_time:str):
+    try:
+        # create cursor object
+        cursor = connection.cursor()
+        
+        # Initialize result list
+        result = []
+        
+        # Query the database for the menu
+        query = """
+            SELECT mi.item_name, mi.price
+            FROM menu_item mi
+            INNER JOIN menu m ON mi.menu_id = m.id
+            WHERE m.menu_name IN (%s, 'bakery items', 'juices') AND mi.item_name IN (%s)
+        """
+        
+        for item in food_items:
+            cursor.execute(query, (meal_time, item))
+            
+            result = result + cursor.fetchall()
+            
+            if not result:
+                return f"{item} is not available at the menu"
+        
+        return result
+        
+        cursor.close()
+            
+    except Error as e:
+        print('❌ Error occured', e)
+        return "❌ An error occured while fetching the menu"

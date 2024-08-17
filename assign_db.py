@@ -54,6 +54,14 @@ orders_table = """
     )
 """
 
+order_status = """
+    CREATE TABLE order_status(
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        order_id INT NOT NULL,
+        status ENUM('in-kitchen', 'ready', 'served', 'delivered') NOT NULL DEFAULT 'in-kitchen',
+        FOREIGN KEY (order_id) REFERENCES customer(order_id)
+"""
+
 order_items_table = """
     CREATE TABLE order_item(
         id INT AUTO_INCREMENT PRIMARY KEY,

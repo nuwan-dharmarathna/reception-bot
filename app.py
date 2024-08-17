@@ -5,10 +5,6 @@ import request_handler
 
 app = FastAPI()
 
-@app.get("/")
-async def index():
-    return {"message": "Hello, World!!!!"}
-
 @app.post("/")
 async def handle_request(request: Request):
     # Retrive the json data from the request
@@ -19,9 +15,10 @@ async def handle_request(request: Request):
     intent = data['queryResult']['intent']['displayName']
     parameters = data['queryResult']['parameters']
     outputContexts = data['queryResult']['outputContexts']
-    fulfillment_text = data['queryResult']['fulfillmentText']
-    
-    # fullfilment_text = data['queryResult']['fulfillmentText']
+    try:
+        fulfillment_text = data['queryResult']['fulfillmentText']
+    except KeyError:
+        fulfillment_text = ""
     
     # Extract the session id from the output contexts
     session_id = utils.extract_session_id(outputContexts[1]['name'])
