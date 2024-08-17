@@ -8,6 +8,11 @@ def extract_session_id(session_str: str):
         return session_id
     return None
 
+def format_order(order: dict):
+    formatted_order = ', '.join(f'{key} - {value}' for key, value in order.items())
+    
+    return formatted_order
+
 def get_current_time():
     # Get the current time
     current_hour = datetime.now().hour

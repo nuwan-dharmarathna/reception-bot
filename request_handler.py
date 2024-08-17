@@ -1,5 +1,4 @@
 from fastapi.responses import JSONResponse
-from datetime import datetime
 
 import db_handle
 import utils
@@ -36,7 +35,6 @@ def order_add(parameters:dict, session_id:str, fullfilment_text:str):
         )
     else:
         order_dict = dict(zip(item_name, quantity_as_int))
-        print(f"item_dict: {order_dict}")
         
         #check items in the menu
         res = db_handle.check_order_item(item_name, time)
@@ -44,12 +42,23 @@ def order_add(parameters:dict, session_id:str, fullfilment_text:str):
         
         # Filtered Dict
         filtered_order_dict = {key: value for key, value in order_dict.items() if key in checked_items}
-        print(f"item_dict: {filtered_order_dict}")
         
+        if session_id in inprogress_orders:
+            current_order = inprogress_orders[session_id]
+            current_order.update(filtered_order_dict)
+            
+            inprogress_orders[session_id] = current_order
+        else:
+            inprogress_orders[session_id] = filtered_order_dict
         
+        fulfillment = f"{utils.format_order(inprogress_orders[session_id])}.\n " + fullfilment_text
         
-        
-
+        return JSONResponse(
+            content={
+                "fulfillmentText": fulfillment
+            }
+        )
+    
 def order_remove(parameters:dict, session_id:str, fullfilment_text:str):
     pass
 
