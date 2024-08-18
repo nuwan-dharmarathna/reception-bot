@@ -41,8 +41,6 @@ def show_menu(meal_time:str):
         
         result = cursor.fetchall()
         
-        cursor.close()
-        
         if not result:
             return "No items available at the moment"
         else:
@@ -50,6 +48,9 @@ def show_menu(meal_time:str):
     except Error as e:
         print('❌ Error occured', e)
         return "❌ An error occured while fetching the menu"
+    
+    finally:
+        cursor.close()
     
 def check_order_item(food_items:list, quantity:list, meal_time:str):
     try:
@@ -122,8 +123,6 @@ def get_next_order_id():
         
         result = cursor.fetchone()
         
-        cursor.close()
-        
         if not result:
             return -1
         else:
@@ -132,9 +131,40 @@ def get_next_order_id():
     except Error as e:
         print('❌ Error occured', e)
         return "❌ An error occured while fetching the menu"
+    
+    finally:
+        cursor.close()
 
 def complete_order(order: dict):
     # Get the next order id
     order_id = get_next_order_id()
+    
+def track_order(order_id: int):
+    try:
+        # create cursor object
+        cursor = connection.cursor()
+        
+        #Query
+        query = """
+            SELECT status
+            FROM order_status
+            WHERE order_id = %s
+        """
+        
+        cursor.execute(query, (order_id,))
+        
+        result = cursor.fetchone()
+        
+        if not result:
+            return None
+        else:
+            return result[0]
+        
+    except Error as e:
+        print('❌ Error occured', e)
+        return "❌ An error occured while fetching the menu"
+    
+    finally:
+        cursor.close()
     
     
