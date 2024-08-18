@@ -118,10 +118,33 @@ def order_complete(parameters:dict, session_id:str, fullfilment_text:str):
         
         return JSONResponse(
             content={
-                "fulfillmentText": f"\n Order Total is: Rs.{total_price}" + fullfilment_text
+                "fulfillmentText": f"\n Order Total is: Rs.{total_price} " + fullfilment_text
             }
         )
         
+def add_order_type(parameters:dict, session_id:str, fullfilment_text:str):
+    order_type = parameters['order_type']
+    print(f"order_type: {order_type}")
+    
+    if session_id not in finalizing_orders:
+        return JSONResponse(
+            content={
+                "fulfillmentText": "No order in finalizing state. Please try again"
+            }
+        )
+    else:
+        order = finalizing_orders[session_id]
+        
+        # add order type to the order
+        order['order_type'] = order_type
+        # print(f"final order: {order}")
+        
+        return JSONResponse(
+            content={
+                "fulfillmentText": fullfilment_text
+            }
+        )
+
 def track_order(parameters:dict, session_id:str, fullfilment_text:str):
     order_id = int(parameters['number'])
     print(f"order_id: {order_id}")

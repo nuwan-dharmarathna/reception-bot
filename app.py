@@ -28,7 +28,8 @@ async def handle_request(request: Request):
         "order_add-context:ongoing-order": request_handler.order_add,
         "order_remove-context:ongoing-order": request_handler.order_remove,
         "order_complete-context:ongoing-order": request_handler.order_complete,
-        "track_order-context:ongoing_tracking": request_handler.track_order
+        "track_order-context:ongoing_tracking": request_handler.track_order,
+        "order_type-context:finalizing-order": request_handler.add_order_type,
     }
     
     return intent_handler[intent](parameters, session_id, fulfillment_text)
