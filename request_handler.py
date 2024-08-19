@@ -124,9 +124,9 @@ def order_complete(parameters:dict, session_id:str, fullfilment_text:str):
         
 def add_order_type(parameters:dict, session_id:str, fullfilment_text:str):
     order_type = parameters['order_type']
-    print(f"order_type: {order_type}")
+    # print(f"order_type: {order_type}, len order: {len(order_type)}")
     
-    if order_type is None or len(order_type) > 1:
+    if order_type is None:
         return JSONResponse(
             content={
                 "fulfillmentText": "Please specify order type correctly!"
@@ -155,7 +155,13 @@ def add_order_type(parameters:dict, session_id:str, fullfilment_text:str):
 def track_order(parameters:dict, session_id:str, fullfilment_text:str):
     order_id = int(parameters['number'])
     
-    fullfilment = f"Your order id hit the backend #{order_id}"
+    # get the order status
+    result = db_handle.track_order(order_id)
+    
+    if result is None:
+        fullfilment = "Order not found"
+    else:
+        fullfilment = f"Order status: {result}"
     
     return JSONResponse(content={"fulfillmentText": fullfilment})
     
