@@ -22,6 +22,7 @@ async def handle_request(request: Request):
     
     # Extract the session id from the output contexts
     session_id = utils.extract_session_id(outputContexts[1]['name'])
+    print(f"session_id in main: {session_id}")
     
     intent_handler = {
         "new_order-context:ongoing-order": request_handler.show_menu,
