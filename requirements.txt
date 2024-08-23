@@ -1,5 +1,4 @@
 python-dotenv
 mysql-connector-python
-"fastapi[standard]"
-streamlit
-google-cloud-dialogflow
+fastapi[standard]
+
