@@ -167,3 +167,4 @@ google_dialogflow_api_key.json
 
 # Chatbot folder
 chatbot/.rasa/
+chatbot/models/

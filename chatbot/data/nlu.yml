@@ -1,91 +1,87 @@
 version: "3.1"
 
 nlu:
-- intent: greet
-  examples: |
-    - hey
-    - hello
-    - hi
-    - hello there
-    - good morning
-    - good evening
-    - moin
-    - hey there
-    - let's go
-    - hey dude
-    - goodmorning
-    - goodevening
-    - good afternoon
+  - intent: greet
+    examples: |
+      - hey
+      - hello
+      - hi
+      - hello there
+      - good morning
+      - good evening
+      - moin
+      - hey there
+      - let's go
+      - hey dude
+      - goodmorning
+      - goodevening
+      - good afternoon
 
-- intent: goodbye
-  examples: |
-    - cu
-    - good by
-    - cee you later
-    - good night
-    - bye
-    - goodbye
-    - have a nice day
-    - see you around
-    - bye bye
-    - see you later
+  - intent: ask_menu
+    examples: |
+      - What's on the menu?
+      - Show me the menu
+      - I'd like to see the menu
+      - What do you have?
+      - What are you serving today?
 
-- intent: affirm
-  examples: |
-    - yes
-    - y
-    - indeed
-    - of course
-    - that sounds good
-    - correct
+  - intent: order_item
+    examples: |
+      - I'd like to order a [burger](item)
+      - I want a [pizza](item)
+      - Add [2](quantity) [burgers](item) to my order
+      - Order [3](quantity) [donuts](item)
 
-- intent: deny
-  examples: |
-    - no
-    - n
-    - never
-    - I don't think so
-    - don't like that
-    - no way
-    - not really
+  - intent: modify_order
+    examples: |
+      - Remove the [pizza](item)
+      - Add [2](quantity) [donuts](item) instead
 
-- intent: mood_great
-  examples: |
-    - perfect
-    - great
-    - amazing
-    - feeling like a king
-    - wonderful
-    - I am feeling very good
-    - I am great
-    - I am amazing
-    - I am going to save the world
-    - super stoked
-    - extremely good
-    - so so perfect
-    - so good
-    - so perfect
+  - intent: finalize_order
+    examples: |
+      - I'm ready to order
+      - I'm done
+      - That's it
+      - I'm finished
+      - I'm ready to checkout
+      - That's all
+      - Complete my order
 
-- intent: mood_unhappy
-  examples: |
-    - my day was horrible
-    - I am sad
-    - I don't feel very well
-    - I am disappointed
-    - super sad
-    - I'm so sad
-    - sad
-    - very sad
-    - unhappy
-    - not good
-    - not very good
-    - extremly sad
-    - so saad
-    - so sad
+  - intent: takeaway_order
+    examples: |
+      - Takeaway
+      - I want to order for takeaway
+      - I'll take it to go
+      - I want to take it away
+      - I'll have it to go
+      - I'll take it away
 
-- intent: bot_challenge
-  examples: |
-    - are you a bot?
-    - are you a human?
-    - am I talking to a bot?
-    - am I talking to a human?
+  - intent: dine_in_order
+    examples: |
+      - Dine in
+      - I want to dine in
+      - I'll eat here
+      - I want to eat at the restaurant
+      - I'll have my meal here
+      - I'll dine in
+
+  - intent: cancel_order
+    examples: |
+      - Cancel my order
+      - I want to cancel
+      - I changed my mind
+      - I don't want to order anymore
+      - I'm not hungry anymore
+
+  - intent: goodbye
+    examples: |
+      - cu
+      - good by
+      - cee you later
+      - good night
+      - bye
+      - goodbye
+      - have a nice day
+      - see you around
+      - bye bye
+      - see you later
