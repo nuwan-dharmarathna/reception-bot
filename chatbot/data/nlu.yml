@@ -1,0 +1,87 @@
+version: "3.1"
+
+nlu:
+  - intent: greet
+    examples: |
+      - hey
+      - hello
+      - hi
+      - hello there
+      - good morning
+      - good evening
+      - moin
+      - hey there
+      - let's go
+      - hey dude
+      - goodmorning
+      - goodevening
+      - good afternoon
+
+  - intent: ask_menu
+    examples: |
+      - What's on the menu?
+      - Show me the menu
+      - I'd like to see the menu
+      - What do you have?
+      - What are you serving today?
+
+  - intent: order_item
+    examples: |
+      - I'd like to order a [burger](item)
+      - I want a [pizza](item)
+      - Add [2](quantity) [burgers](item) to my order
+      - Order [3](quantity) [donuts](item)
+
+  - intent: modify_order
+    examples: |
+      - Remove the [pizza](item)
+      - Add [2](quantity) [donuts](item) instead
+
+  - intent: finalize_order
+    examples: |
+      - I'm ready to order
+      - I'm done
+      - That's it
+      - I'm finished
+      - I'm ready to checkout
+      - That's all
+      - Complete my order
+
+  - intent: takeaway_order
+    examples: |
+      - Takeaway
+      - I want to order for takeaway
+      - I'll take it to go
+      - I want to take it away
+      - I'll have it to go
+      - I'll take it away
+
+  - intent: dine_in_order
+    examples: |
+      - Dine in
+      - I want to dine in
+      - I'll eat here
+      - I want to eat at the restaurant
+      - I'll have my meal here
+      - I'll dine in
+
+  - intent: cancel_order
+    examples: |
+      - Cancel my order
+      - I want to cancel
+      - I changed my mind
+      - I don't want to order anymore
+      - I'm not hungry anymore
+
+  - intent: goodbye
+    examples: |
+      - cu
+      - good by
+      - cee you later
+      - good night
+      - bye
+      - goodbye
+      - have a nice day
+      - see you around
+      - bye bye
+      - see you later
