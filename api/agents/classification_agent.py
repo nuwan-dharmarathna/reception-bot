@@ -1,11 +1,13 @@
 from openai import OpenAI
 import os
 import json
+import logging
 from dotenv import load_dotenv
 from copy import deepcopy
-from .utils import get_chatbot_response
+from .utils import (get_chatbot_response)
 
 load_dotenv()
+logging.basicConfig(level=logging.INFO)
 
 class ClassificationAgent(object):
     def __init__(self):
@@ -27,9 +29,9 @@ class ClassificationAgent(object):
 
             Your output should be in a structured json format like so. each key is a string and each value is a string. Make sure to follow the format exactly:
             {
-            "chain of thought": go over each of the agents above and write some your thoughts about what agent is this input relevant to.
-            "decision": "details_agent" or "order_taking_agent" or "recommendation_agent". Pick one of those. and only write the word.
-            "message": leave the message empty.
+            "chain of thought": "go over each of the agents above and write some your thoughts about what agent is this input relevant to.",
+            "decision": "details_agent" or "order_taking_agent" or "recommendation_agent". Pick one of those. and only write the word,
+            "message": leave the message empty
             }
         """
         
@@ -46,6 +48,9 @@ class ClassificationAgent(object):
         return output
     
     def postprocess_response(self, response):
+        
+        logging.info(f"Response from classification agent: {response}")
+        
         output = json.loads(response)
         
         dict_output ={
